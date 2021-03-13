@@ -2,13 +2,15 @@ package stream.collectors;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import stream.collectors.blog.BlogPost;
+import stream.collectors.blog.BlogPostType;
+import stream.collectors.blog.Tuple;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,7 +19,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static stream.collectors.BlogPostType.*;
+import static stream.collectors.blog.BlogPostType.*;
 
 public class GroupingByTest {
     List<BlogPost> posts = Arrays.asList(
@@ -150,90 +152,3 @@ public class GroupingByTest {
     }
 }
 
-class BlogPost {
-    String title;
-    String author;
-    BlogPostType type;
-    int likes;
-
-    public BlogPost(String title, String author, BlogPostType type, int likes) {
-        this.title = title;
-        this.author = author;
-        this.type = type;
-        this.likes = likes;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof BlogPost)) return false;
-        BlogPost blogPost = (BlogPost) o;
-        return getLikes() == blogPost.getLikes() && Objects.equals(getTitle(), blogPost.getTitle()) && Objects.equals(getAuthor(), blogPost.getAuthor()) && getType() == blogPost.getType();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getTitle(), getAuthor(), getType(), getLikes());
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public BlogPostType getType() {
-        return type;
-    }
-
-    public void setType(BlogPostType type) {
-        this.type = type;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-}
-
-enum BlogPostType {
-    NEWS,
-    REVIEW,
-    GUIDE
-}
-
-class Tuple {
-    BlogPostType type;
-    String author;
-
-    public Tuple(BlogPostType type, String author) {
-        this.type = type;
-        this.author = author;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Tuple)) return false;
-        Tuple tuple = (Tuple) o;
-        return type == tuple.type && Objects.equals(author, tuple.author);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, author);
-    }
-}
