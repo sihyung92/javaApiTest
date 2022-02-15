@@ -11,7 +11,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -29,6 +28,7 @@ import java.util.List;
  * <br>
  * 참고한 사이트
  * <a href="https://poi.apache.org/components/spreadsheet/quick-guide.html">apache poi quick guide</a>
+ *
  * @author wedge
  */
 @Disabled
@@ -43,7 +43,7 @@ public class ExcelCreateTest {
         workbook = new XSSFWorkbook();
     }
 
-    @AfterEach
+//    @AfterEach
     public void cleanUpFile() {
         File targetFile = new File(EXCEL_FILE_NAME);
         targetFile.delete();
@@ -98,7 +98,7 @@ public class ExcelCreateTest {
         private CreationHelper creationHelper;
 
         @BeforeEach
-        void setUp(){
+        void setUp() {
             sheet = workbook.createSheet("test");
             creationHelper = workbook.getCreationHelper();
         }
@@ -240,5 +240,11 @@ public class ExcelCreateTest {
 
             assertThatThrownBy(expectedString::getNumericCellValue).isInstanceOf(IllegalStateException.class);
         }
+    }
+
+    void createTestExcel() {
+        ExcelTestDataLoader instance = ExcelTestDataLoader.getInstance();
+        Workbook initialize = instance.initialize();
+        createXlsxFile(initialize);
     }
 }
