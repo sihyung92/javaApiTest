@@ -1,5 +1,15 @@
 plugins {
+    id 'org.springframework.boot' version '2.6.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
 }
 
 group 'org.example'
@@ -9,13 +19,19 @@ repositories {
     mavenCentral()
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+
 
 dependencies {
-    implementation 'org.apache.poi:poi:3.17'
-    //MS 사의 XML 기반 파일을 활용하는데 필요한 라이브러
-    implementation 'org.apache.poi:poi-ooxml:3.17'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.7'
+    implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.7'
+
+    implementation 'org.apache.poi:poi:5.2.0'
+
+    //MS 사의 XML 기반 파일을 활용하는데 필요한 라이브러리
+    implementation 'org.apache.poi:poi-ooxml:5.2.0'
 
     compileOnly 'org.projectlombok:lombok:1.18.22'
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
